@@ -59,3 +59,36 @@ echo -n $PASSWORD | faas-cli login --username admin --password-stdin
 
 faas-cli list
 
+mkdir -p lab2OF && cd lab2OF
+
+faas-cli list --verbose
+faas-cli list -v
+
+faas-cli invoke markdown
+
+echo Hi | faas-cli invoke markdown
+
+uname -a | faas-cli invoke markdown
+
+kubectl -n openfaas run \
+--image=stefanprodan/faas-grafana:4.6.3 \
+--port=3000 \
+grafana
+
+kubectl -n openfaas create deploy --image=stefanprodan/faas-grafana:4.6.3 grafana
+
+kubectl -n openfaas expose deployment grafana \
+--type=NodePort \
+--name=grafana
+
+GRAFANA_PORT=$(kubectl -n openfaas get svc grafana -o jsonpath="{.spec.ports[0].nodePort}")
+
+GRAFANA_URL=http://IP_ADDRESS:$GRAFANA_PORT/dashboard/db/openfaas
+
+kubectl port-forward deployment/grafana 3000:3000 -n openfaas
+
+kubectl -n openfaas get pods
+
+kubectl -n openfaas get deploy
+
+kubectl -n openfaas get svc
