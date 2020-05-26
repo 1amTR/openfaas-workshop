@@ -92,3 +92,49 @@ kubectl -n openfaas get pods
 kubectl -n openfaas get deploy
 
 kubectl -n openfaas get svc
+
+mkdir -p lab3OF && cd lab3OF
+
+faas-cli template pull
+
+faas-cli new --list
+
+faas-cli new --lang python3 hello-openfaas --prefix=""
+
+faas-cli up -f hello-openfaas.yml
+
+kubectl -n openfaas-fn get pods
+
+kubectl -n openfaas-fn get deploy
+
+kubectl -n openfaas-fn get svc
+
+faas-cli new --lang python3 astronaut-finder --prefix=""
+
+faas-cli build -f ./astronaut-finder.yml
+
+faas-cli push -f ./astronaut-finder.yml
+
+faas-cli deploy -f ./astronaut-finder.yml
+
+echo | faas-cli invoke astronaut-finder
+
+kubectl logs deployment/astronaut-finder -n openfaas-fn
+
+faas-cli new --lang python3 first
+
+faas-cli new --lang python3 second --append=./first.yml
+
+mv first.yml example.yml
+
+faas-cli build -f ./example.yml --parallel=2
+
+faas-cli build -f ./example.yml --filter=second
+
+faas-cli template pull https://github.com/openfaas-incubator/python3-debian
+
+faas-cli new --list | grep python
+
+faas-cli template store list
+
+faas-cli template store list -v
