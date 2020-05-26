@@ -138,3 +138,19 @@ faas-cli new --list | grep python
 faas-cli template store list
 
 faas-cli template store list -v
+
+cp -r lab3OF lab4OF && cd lab4OFOF
+
+faas-cli deploy --name env --fprocess="env" --image="functions/alpine:latest"
+
+echo "" | faas-cli invoke env --query workshop=1
+
+curl -X GET $OPENFAAS_URL/function/env/some/path -d ""
+
+curl $OPENFAAS_URL/function/env --header "X-Output-Mode: json" -d ""
+
+faas-cli new --lang python3 ingest-file --prefix=your-name
+
+faas-cli up -f ingest-file.yml
+
+echo "Hello function" > message.txt
