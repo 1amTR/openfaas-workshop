@@ -204,3 +204,19 @@ faas-cli up -f ./issue-bot.yml
 
 http://fuh83fhfj.ngrok.io/function/issue-bot
 
+mkdir -p lab6OF && cd lab6OF
+
+faas-cli new --lang python3 show-html --prefix="1amtr"
+
+```
+def handle(req):
+    """handle a request to the function
+    Args:
+        req (str): request body
+    """
+
+    html = '<html><h2>Hi, from your function!</h2></html>'
+
+    return html
+```
+
