@@ -154,3 +154,53 @@ faas-cli new --lang python3 ingest-file --prefix=your-name
 faas-cli up -f ingest-file.yml
 
 echo "Hello function" > message.txt
+
+mkdir -p lab5 \
+   && cd lab5
+
+mkdir -p lab5OF && cd lab5OF
+
+kubectl -n openfaas run \
+--image=alexellis2/ngrok-admin \
+--port=4040 \
+ngrok -- http gateway:8080
+
+kubectl -n openfaas run --image=alexellis2/ngrok-admin --port=4040 ngrok -- http gateway:8080
+kubectl -n openfaas run --image=alexellis2/ngrok-admin ngrok
+kubectl -n openfaas create deploy --image=alexellis2/ngrok-admin ngrok
+kubectl -n openfaas expose deployment ngrok --type=NodePort --port=4040 --name=ngrok
+kubectl port-forward deployment/ngrok 4040:4040 -n openfaas &
+
+kubectl -n openfaas delete pods,deploy ngrok
+kubectl -n openfaas delete deploy ngrok
+
+kubectl -n openfaas get 
+kubectl -n openfaas delete pods,deploy ngrok
+
+kubectl delete pod
+
+iptables -P INPUT ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -P FORWARD ACCEPT
+
+iptables -F INPUT
+iptables -F OUTPUT
+iptables -F FORWARD
+or
+iptables -F
+
+
+kubectl -n openfaas expose deployment ngrok \
+--type=NodePort \
+--name=ngrok
+
+kubectl port-forward deployment/ngrok 4040:4040 -n openfaas
+
+faas-cli list --gateway https://fuh83fhfj.ngrok.io/
+
+faas-cli new --lang python3 issue-bot --prefix=""
+
+faas-cli up -f ./issue-bot.yml
+
+http://fuh83fhfj.ngrok.io/function/issue-bot
+
