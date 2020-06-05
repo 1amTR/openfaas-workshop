@@ -284,3 +284,6 @@ Listening on [faas-request], clientID=[faas-worker-queue-worker-54cfc7d5bc-nr6l4
 
 kubectl describe pod -n openfaas ngrok
 
+mkdir -p lab8OF && cd lab8OF
+
+echo | faas-cli invoke sleep-for
