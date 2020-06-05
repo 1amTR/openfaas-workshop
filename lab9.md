@@ -1,0 +1,1 @@
+# Lab 9 - Advanced feature - Auto-scaling

@@ -50,7 +50,7 @@ functions:
   sleep-for:
     lang: python3
     handler: ./sleep-for
-    image: 1amtr/sleep-for:0.1
+    image: 1amtr/sleep-for:latest
     environment:
       sleep_duration: 10
       read_timeout: "5s"
@@ -61,16 +61,24 @@ functions:
 Giờ up function và gọi
 
 ```
+faas-cli up -f sleep-for.yml
+
 echo | faas-cli invoke sleep-for
 ```
+
+![](/screenshot/sleep-for-1.png)
 
 Bạn sẽ thấy function không in ra thông báo, do `sleep_duration` cao hơn `timeout values`
 
 Bây giờ, set `sleep_duration` lại thành 2. Up function
 
 ```
+faas-cli up -f sleep-for.yml
+
 echo | faas-cli invoke sleep-for
 ```
+
+![](/screenshot/sleep-for-2.png)
 
 - API Gateway
 
